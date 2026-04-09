@@ -9,9 +9,15 @@ def analizar_mercado():
     # 1. Carga de configuración
     load_dotenv()
     api_key = os.getenv("GROQ_API_KEY")
+
     if not api_key:
-        print("Error: No se encontró GROQ_API_KEY en el archivo .env")
-        return
+        print("🔑 No se encontró la API Key de Groq.")
+        api_key = input("Por favor, ingresa tu Groq API Key: ").strip()
+        
+        # Guardamos la key en un .env para la próxima vez
+        with open(".env", "a") as f:
+            f.write(f"\nGROQ_API_KEY={api_key}")
+        print("✅ Key guardada en el archivo .env para futuros usos.")
 
     client = Groq(api_key=api_key)
 
