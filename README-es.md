@@ -20,6 +20,9 @@
 
 ---
 
+> [!IMPORTANT]
+> **Compatibilidad de Plataforma**: Actualmente, JobTracker está diseñado y optimizado exclusivamente para **Computrabajo**. El soporte para otras plataformas como LinkedIn o Indeed aún no está implementado.
+
 **JobTracker** es una potente herramienta de automatización diseñada para extraer, procesar y analizar ofertas de empleo de Computrabajo a escala. Combinando web scraping de alta velocidad con las capacidades analíticas de **Llama 3.3 (vía Groq API)**, transforma descripciones básicas en información estratégica del mercado.
 
 Ofrece un flujo de trabajo fluido desde la recolección automatizada hasta resúmenes profesionales generados por IA.
@@ -42,8 +45,8 @@ JobTracker sigue un proceso de ejecución de dos fases para asegurar la calidad 
 ### 1. Motor de Extracción (Deep Scraping)
 El scraper utiliza **Playwright** para recorrer las páginas de resultados. Por cada oferta, realiza una segunda navegación al detalle. En lugar de selectores frágiles, usa una extracción robusta de `inner_text` sobre el contenedor `.box_detail`, capturando el 100% de la información visible aunque el diseño de la web cambie ligeramente.
 
-### 2. Procesador Analítico (Groq / Llama 3.3)
-El módulo analítico consume el CSV generado. Para evitar el desbordamiento de tokens manteniendo la precisión, implementa un truncado inteligente (toma los primeros 15 puestos con 1000 caracteres por descripción). Envía este contexto de alto valor a **Llama 3.3**, que extrae patrones que a un humano le tomaría horas identificar.
+### ### 2. Procesador Analítico (Groq / Llama 3.3)
+El módulo analítico consume el CSV generado. Para evitar el desbordamiento de tokens manteniendo la precisión, implementa un truncado inteligente. Envía este contexto de alto valor a **Llama 3.3**, que extrae patrones que a un humano le tomaría horas identificar.
 
 ---
 

@@ -20,6 +20,9 @@
 
 ---
 
+> [!IMPORTANT]
+> **Platform Specificity**: Currently, JobTracker is exclusively designed and optimized for **Computrabajo**. Support for other platforms like LinkedIn or Indeed is not yet implemented.
+
 **JobTracker** is a powerful automation tool designed to extract, process, and analyze job postings from Computrabajo at scale. By combining high-speed web scraping with the analytical capabilities of **Llama 3.3 (via Groq API)**, it transforms raw job descriptions into actionable market insights.
 
 It provides a seamless workflow from automated data collection to professional strategic summaries.
