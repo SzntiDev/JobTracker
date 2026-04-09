@@ -1,0 +1,1 @@
+.\venv\Scripts\python scraper_computrabajo.py
