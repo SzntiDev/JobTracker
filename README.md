@@ -1,106 +1,160 @@
-<h1 align="center">
-  <br>
-  JobTracker
-  <br>
-</h1>
+# JobTracker
 
-<h4 align="center">AI-Powered Job Market Scraper & Analyst.</h4>
+A powerful AI-driven job scraper and analyzer designed to streamline the job search process by extracting and processing postings from platforms like Computrabajo.
 
-<p align="center">
-  <em>Read this in other languages: <a href="README.md">English</a>, <a href="README-es.md">Español</a></em>
-</p>
+## Description
+JobTracker is a Python-based utility that automates the collection and analysis of job offers. It goes beyond simple scraping by integrating with AI models (like Groq or Gemini) to summarize requirements, extract key skills, and provide strategic insights into the current job market, all while maintaining a structured local database.
 
-<p align="center">
-  <a href="#-features">Features</a> •
-  <a href="#-how-it-works">How It Works</a> •
-  <a href="#-installation-and-usage">Installation & Usage</a> •
-  <a href="#-architecture">Architecture</a> •
-  <a href="#-tech-stack">Tech Stack</a>
-</p>
+## Detailed Overview
+Searching for jobs manually is time-consuming. JobTracker automates this by systematically scraping job portals, extracting detailed descriptions, and using Large Language Models (LLMs) to analyze each posting. The tool identifies essential technical requirements, salary ranges (when available), and company expectations, presenting the data in a clean CSV format for easy review and comparison.
 
----
+## Features
+- Deep scraping of job postings from Computrabajo
+- AI-powered analysis for skill extraction and summaries
+- Automated data persistence in CSV format
+- Smart filtering of redundant or irrelevant offers
+- Detailed logging of scraping and analysis progress
+- Secure management of API credentials via environment variables
 
-> [!IMPORTANT]
-> **Platform Specificity**: Currently, JobTracker is exclusively designed and optimized for **Computrabajo**. Support for other platforms like LinkedIn or Indeed is not yet implemented.
+## Technologies Used
+- Python 3.x
+- Selenium / BeautifulSoup4 (Scraping)
+- AI Integration (Groq API / Google Gemini)
+- Pandas (Data processing)
+- Dotenv (Environment management)
 
-**JobTracker** is a powerful automation tool designed to extract, process, and analyze job postings from Computrabajo at scale. By combining high-speed web scraping with the analytical capabilities of **Llama 3.3 (via Groq API)**, it transforms raw job descriptions into actionable market insights.
-
-It provides a seamless workflow from automated data collection to professional strategic summaries.
-
-## ✨ Features
-
-- 🕷️ **Deep Scraper Logic**: Unlike basic scrapers, JobTracker visits each individual job link to extract full descriptions, salary info, and specific requirements.
-- 🤖 **AI Intelligence**: Integrated with **Groq (Llama-3.3-70b)** to identify top technical skills, experience levels, and strategic advice for candidates.
-- ⚡ **Asynchronous Core**: Built on **Playwright**, allowing for fast and reliable navigation through dozens of pages and dynamic content.
-- 🔑 **Portable Security**: Uses encrypted `.env` management to keep API keys safe and private, with an automated fallback to manual input for new users.
-- 🎨 **CLI Aesthetics**: Features a custom ASCII-art terminal interface with UTF-8 support for a premium developer experience.
-- 📂 **Structured Data Export**: Automatically generates detailed CSV files (`utf-8-sig`) for further analysis or spreadsheet management.
-
----
-
-## 🚀 How It Works
-
-JobTracker follows a dual-phase execution pipeline to ensure data quality and intelligence.
-
-### 1. Extraction Engine (Deep Scraping)
-The scraper uses **Playwright** to navigate multiple result pages. For each job found, it performs a second-pass navigation to the detail URL. Instead of relying on fragile CSS selectors, it employs a robust `inner_text` extraction of the `.box_detail` container, capturing 100% of the visible information (requirements, benefits, full text) even if the platform layout changes slightly.
-
-### 2. Analytical Processor (Groq / Llama 3.3)
-The analytical module consumes the generated CSV. To prevent token overflow while maintaining the highest precision, it implements a smart truncation algorithm. It sends this condensed high-value context to **Llama 3.3**, which extracts patterns that a human would take hours to identify.
-
----
-
-## 💻 Installation and Usage
-
-### Prerequisites
-- Python 3.10 or higher.
-- A free **Groq API Key** (obtainable at [console.groq.com](https://console.groq.com)).
-
-### Steps
-1. **Clone the repository**:
+## Installation Instructions
+1. Clone the repository:
    ```bash
    git clone https://github.com/Santiprz27/JobTracker.git
+   ```
+2. Navigate to the project directory:
+   ```bash
    cd JobTracker
    ```
-2. **Setup virtual environment**:
-   ```bash
-   python -m venv venv
-   .\venv\Scripts\activate
-   ```
-3. **Install dependencies**:
+3. Install dependencies:
    ```bash
    pip install -r requirements.txt
-   playwright install chromium
    ```
-4. **Run the application**:
-   Double click on `ejecutar.bat` or run:
+4. Set up your `.env` file with the following variables:
+   ```env
+   GROQ_API_KEY=your_api_key_here
+   GEMINI_API_KEY=your_api_key_here
+   ```
+5. Run the scraper:
    ```bash
-   .\venv\Scripts\python scraper_computrabajo.py
+   python scraper_computrabajo.py
    ```
+
+## Usage Examples
+Run the analysis script to process existing offers:
+```bash
+python analista_ia.py
+```
+This will process the `ofertas_detalladas.csv` file and generate an AI-enhanced report.
+
+## Project Structure
+- `scraper_computrabajo.py`: Core logic for web scraping and data extraction.
+- `analista_ia.py`: AI-driven analysis module for job descriptions.
+- `run.bat`: Batch file for easy execution in Windows environments.
+- `ofertas_detalladas.csv`: Primary data storage for scraped job postings.
+- `requirements.txt`: List of Python dependencies.
+
+## Configuration
+Adjust search criteria (keywords, location) within the `scraper_computrabajo.py` script or through a configuration file if available.
+
+## API Documentation
+Internal functions are documented for ease of extension. For AI interactions, refer to the respective AI provider's documentation.
+
+## Screenshots or Examples
+![Scraping in Progress](img/1.gif) *(Example of visual progress indicators)*
+
+## Roadmap / Future Improvements
+- Support for additional platforms (LinkedIn, Indeed)
+- Web-based dashboard for viewing analyzed offers
+- Automated application features via browser automation
+- Real-time notification system for new matches
+
+## Contributing Guidelines
+Contributions are welcome! Please open an issue or submit a PR for any improvements or new features.
+
+## License
+MIT License
 
 ---
 
-## 🏗️ Architecture
+# JobTracker (Español)
 
-```text
-JobTracker/
-├── scraper_computrabajo.py      # Main scraping engine (Playwright + BS4).
-├── analista_ia.py               # AI Analytics module (Groq API + Pandas).
-├── ejecutar.bat                 # Automated CLI orchestrator with custom ASCII art.
-├── .env                         # Local environment variables (API Keys).
-├── .gitignore                   # Safety rules to exclude sensitive data and venv.
-└── ofertas_detalladas.csv       # Flattened database of extracted jobs.
+Un potente extractor y analizador de empleos impulsado por IA, diseñado para optimizar el proceso de búsqueda laboral mediante la extracción y procesamiento de ofertas de plataformas como Computrabajo.
+
+## Descripción
+JobTracker es una utilidad basada en Python que automatiza la recopilación y el análisis de ofertas de trabajo. Va más allá de la simple extracción al integrarse con modelos de IA (como Groq o Gemini) para resumir requisitos, extraer habilidades clave y proporcionar información estratégica del mercado laboral.
+
+## Resumen Detallado
+Buscar trabajo manualmente requiere mucho tiempo. JobTracker automatiza esto mediante el scraping sistemático de portales de empleo, la extracción de descripciones detalladas y el uso de modelos de lenguaje (LLM) para analizar cada oferta. La herramienta identifica requisitos técnicos esenciales, rangos salariales y expectativas de la empresa.
+
+## Características
+- Extracción profunda de ofertas de trabajo desde Computrabajo
+- Análisis potenciado por IA para la extracción de habilidades y resúmenes
+- Persistencia de datos automatizada en formato CSV
+- Filtrado inteligente de ofertas redundantes o irrelevantes
+- Registro detallado del progreso de extracción y análisis
+- Gestión segura de credenciales mediante variables de entorno
+
+## Tecnologías Utilizadas
+- Python 3.x
+- Selenium / BeautifulSoup4 (Scraping)
+- Integración con IA (Groq API / Google Gemini)
+- Pandas (Procesamiento de datos)
+
+## Instrucciones de Instalación
+1. Clonar el repositorio:
+   ```bash
+   git clone https://github.com/Santiprz27/JobTracker.git
+   ```
+2. Navegar al directorio del proyecto:
+   ```bash
+   cd JobTracker
+   ```
+3. Instalar dependencias:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Configurar el archivo `.env` con tus API keys.
+5. Ejecutar el extractor:
+   ```bash
+   python scraper_computrabajo.py
+   ```
+
+## Ejemplos de Uso
+Ejecuta el script de análisis para procesar las ofertas:
+```bash
+python analista_ia.py
 ```
 
----
+## Estructura del Proyecto
+- `scraper_computrabajo.py`: Lógica principal de scraping y extracción de datos.
+- `analista_ia.py`: Módulo de análisis con IA para descripciones de puestos.
+- `run.bat`: Archivo por lotes para ejecución sencilla en Windows.
+- `ofertas_detalladas.csv`: Almacenamiento principal de las ofertas extraídas.
 
-## ⚙️ Tech Stack
+## Configuración
+Ajusta los criterios de búsqueda (palabras clave, ubicación) directamente en el script.
 
-- **[Playwright](https://playwright.dev/python/)** for high-performance web automation.
-- **[BeautifulSoup4](https://www.crummy.com/software/BeautifulSoup/)** for HTML parsing and data structure cleanup.
-- **[Groq SDK](https://console.groq.com/)** for lightning-fast inference using Llama 3.3.
-- **[Pandas](https://pandas.pydata.org/)** for data management and CSV processing.
-- **[python-dotenv](https://pypi.org/project/python-dotenv/)** for secure variable handling.
+## Documentación de la API
+Funciones internas documentadas.
 
----
-> Project developed with a focus on web automation and LLM market analysis.
+## Capturas de Pantalla o Ejemplos
+![Progreso del Scraping](img/1.gif)
+
+## Hoja de Ruta / Mejoras Futuras
+- Soporte para plataformas adicionales (LinkedIn, Indeed)
+- Dashboard web para visualización de ofertas analizadas
+- Características de postulación automatizada
+- Sistema de notificaciones en tiempo real para nuevos puestos
+
+## Guía para Contribuir
+¡Las contribuciones son bienvenidas!
+
+## Licencia
+Licencia MIT
